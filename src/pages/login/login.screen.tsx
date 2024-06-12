@@ -8,6 +8,7 @@ import {
     Button,
     ForgotPassword,
     ErrorInput,
+    ErrorMessage,
 } from "./login.style";
 import useLoginController from "./login.controller";
 
@@ -15,7 +16,8 @@ const LoginPage = () => {
     const {
         email,
         password,
-        error,
+        emailError,
+        passwordError,
         loading,
         handleEmailChange,
         handlePasswordChange,
@@ -34,7 +36,7 @@ const LoginPage = () => {
                         placeholder="name@example.com"
                         value={email}
                         onChange={handleEmailChange}
-                        error={error}
+                        error={!!emailError}
                     />
                 </Label>
                 <Label>
@@ -44,8 +46,11 @@ const LoginPage = () => {
                         placeholder="********"
                         value={password}
                         onChange={handlePasswordChange}
-                        error={error}
+                        error={!!passwordError && !emailError}
                     />
+                    {passwordError && !emailError && (
+                        <ErrorMessage>{passwordError}</ErrorMessage>
+                    )}
                 </Label>
                 <ForgotPassword href="#">Esqueci minha senha</ForgotPassword>
                 <Button type="submit" disabled={loading}>

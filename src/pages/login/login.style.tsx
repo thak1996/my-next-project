@@ -96,3 +96,9 @@ export const ForgotPassword = styled.a`
         text-decoration: underline;
     }
 `;
+
+export const ErrorMessage = styled.p`
+    color: ${({ theme }) => theme.colors.red};
+    font-size: 0.875rem;
+    margin-top: 5px;
+`;

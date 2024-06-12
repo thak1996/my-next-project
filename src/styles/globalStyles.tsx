@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     background-color: ${({ theme }) => theme.colors.background};
+    overflow-y: scroll;
   }
 `;
 

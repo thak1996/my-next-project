@@ -14,7 +14,6 @@ export const LoginContainer = styled.div`
 export const Logo = styled.img`
     width: clamp(256px, 50vw, 512px);
     height: auto;
-    
 `;
 
 export const Title = styled.h1`
@@ -61,6 +60,11 @@ export const Input = styled.input`
     font-size: 1rem;
     box-sizing: border-box;
     margin-bottom: 6px;
+`;
+
+export const ErrorInput = styled(Input)<{ error: boolean }>`
+    border-color: ${({ error, theme }) =>
+        error ? theme.colors.red : theme.colors.graySemiMedium};
 `;
 
 export const Button = styled.button`

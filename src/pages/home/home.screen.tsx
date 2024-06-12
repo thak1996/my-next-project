@@ -1,5 +1,5 @@
 import React from "react";
-import useHomeController from "./home.controller";
+import useHomeController from "../../controllers/home.controller";
 import {
     Container,
     Header,
@@ -22,7 +22,7 @@ import {
     ProductPrice,
     ProductUnits,
     NoItemsMessage,
-} from "./home.style";
+} from "../../styles/home.style";
 
 const HomePage: React.FC = () => {
     const {

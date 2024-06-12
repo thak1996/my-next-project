@@ -1,6 +1,6 @@
 import React from "react";
-import useSplashController from "./splash.controller";
-import { SplashContainer, Logo, Title, Shadow } from "./splash.style";
+import useSplashController from "../../controllers/splash.controller";
+import { SplashContainer, Logo, Title, Shadow } from "../../styles/splash.style";
 
 const SplashScreen = () => {
     useSplashController();

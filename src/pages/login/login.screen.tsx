@@ -8,9 +8,9 @@ import {
     Button,
     ForgotPassword,
     ErrorInput,
-    ErrorMessage
-} from "./login.style";
-import useLoginController from "./login.controller";
+    ErrorMessage,
+} from "../../styles/login.style";
+import useLoginController from "../../controllers/login.controller";
 import ModalAdmin from "../../components/modal.recovery.password/modalAdmin.component";
 import ModalCode from "../../components/modal.recovery.password/modalCode.component";
 import ModalChangePassword from "../../components/modal.recovery.password/modalChangePassword.component";
@@ -35,7 +35,7 @@ const LoginPage = () => {
         openChangePasswordModal,
         closeChangePasswordModal,
         updatePassword,
-        resetModals
+        resetModals,
     } = useLoginController();
 
     return (
@@ -66,25 +66,39 @@ const LoginPage = () => {
                         <ErrorMessage>{passwordError}</ErrorMessage>
                     )}
                 </Label>
-                <ForgotPassword href="#" onClick={handleForgotPassword}>Esqueci minha senha</ForgotPassword>
+                <ForgotPassword href="#" onClick={handleForgotPassword}>
+                    Esqueci minha senha
+                </ForgotPassword>
                 <Button type="submit" disabled={loading}>
                     {loading ? "Entrando..." : "Entrar"}
                 </Button>
             </Form>
             <ModalAdmin
                 isOpen={isAdminModalOpen}
-                onClose={() => { closeAdminModal(); resetModals(); }}
+                onClose={() => {
+                    closeAdminModal();
+                    resetModals();
+                }}
                 onNext={openCodeModal}
             />
             <ModalCode
                 isOpen={isCodeModalOpen}
-                onClose={() => { closeCodeModal(); resetModals(); }}
+                onClose={() => {
+                    closeCodeModal();
+                    resetModals();
+                }}
                 onVerify={openChangePasswordModal}
             />
             <ModalChangePassword
                 isOpen={isChangePasswordModalOpen}
-                onClose={() => { closeChangePasswordModal(); resetModals(); }}
-                onSave={() => { closeChangePasswordModal(); resetModals(); }}
+                onClose={() => {
+                    closeChangePasswordModal();
+                    resetModals();
+                }}
+                onSave={() => {
+                    closeChangePasswordModal();
+                    resetModals();
+                }}
                 updatePassword={updatePassword}
             />
         </LoginContainer>

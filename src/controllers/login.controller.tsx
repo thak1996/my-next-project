@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { setItem, getItem } from "../../utils/secureStorage";
+import { setItem, getItem } from "../utils/secureStorage";
 
 const useLoginController = () => {
     const [email, setEmail] = useState("");
@@ -11,11 +11,12 @@ const useLoginController = () => {
     const [userType, setUserType] = useState<string | null>(null);
     const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
     const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
-    const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+    const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
+        useState(false);
     const router = useRouter();
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
             const storedEmail = getItem("email");
             const storedPassword = getItem("password");
             if (storedEmail) setEmail(storedEmail);
@@ -40,9 +41,11 @@ const useLoginController = () => {
         setPasswordError(null);
 
         try {
-            const storedAdminEmail = getItem("adminEmail") || "admin@teste.com.br";
+            const storedAdminEmail =
+                getItem("adminEmail") || "admin@teste.com.br";
             const storedAdminPassword = getItem("adminPassword") || "admin123";
-            const storedRepEmail = getItem("repEmail") || "representante@teste.com.br";
+            const storedRepEmail =
+                getItem("repEmail") || "representante@teste.com.br";
             const storedRepPassword = getItem("repPassword") || "rep123";
 
             if (email === storedAdminEmail) {
@@ -76,7 +79,10 @@ const useLoginController = () => {
     const handleForgotPassword = () => {
         if (email === getItem("adminEmail") || "admin@teste.com.br") {
             setIsAdminModalOpen(true);
-        } else if (email === getItem("repEmail") || "representante@teste.com.br") {
+        } else if (
+            email === getItem("repEmail") ||
+            "representante@teste.com.br"
+        ) {
             setIsCodeModalOpen(true);
         } else {
             setEmailError("E-mail não encontrado");
@@ -106,7 +112,7 @@ const useLoginController = () => {
     };
 
     const updatePassword = (newPassword: string) => {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
             if (userType === "admin") {
                 setItem("adminPassword", newPassword);
             } else if (userType === "representante") {

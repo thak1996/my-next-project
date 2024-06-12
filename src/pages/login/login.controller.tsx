@@ -8,6 +8,8 @@ const useLoginController = () => {
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [userType, setUserType] = useState<string | null>(null);
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+    const [isRepModalOpen, setIsRepModalOpen] = useState(false);
     const router = useRouter();
 
     const adminCredentials = {
@@ -39,7 +41,6 @@ const useLoginController = () => {
         try {
             if (email === adminCredentials.email) {
                 if (password === adminCredentials.password) {
-                    console.log("Login de administrador bem-sucedido");
                     setUserType("admin");
                     router.push("/home/home.screen");
                 } else {
@@ -47,11 +48,10 @@ const useLoginController = () => {
                 }
             } else if (email === representativeCredentials.email) {
                 if (password === representativeCredentials.password) {
-                    console.log("Login de representante bem-sucedido");
                     setUserType("representante");
                     router.push("/home/home.screen");
                 } else {
-                    throw new Error("Senha incorreta");
+                    throw new Error("Senha incorreta, tente novamente.");
                 }
             } else {
                 throw new Error("E-mail não encontrado");
@@ -67,6 +67,24 @@ const useLoginController = () => {
         }
     };
 
+    const handleForgotPassword = () => {
+        if (email === adminCredentials.email) {
+            setIsAdminModalOpen(true);
+        } else if (email === representativeCredentials.email) {
+            setIsRepModalOpen(true);
+        } else {
+            setEmailError("E-mail não encontrado");
+        }
+    };
+
+    const closeAdminModal = () => {
+        setIsAdminModalOpen(false);
+    };
+
+    const closeRepModal = () => {
+        setIsRepModalOpen(false);
+    };
+
     return {
         email,
         password,
@@ -74,9 +92,14 @@ const useLoginController = () => {
         passwordError,
         loading,
         userType,
+        isAdminModalOpen,
+        isRepModalOpen,
         handleEmailChange,
         handlePasswordChange,
         handleSubmit,
+        handleForgotPassword,
+        closeAdminModal,
+        closeRepModal,
     };
 };
 

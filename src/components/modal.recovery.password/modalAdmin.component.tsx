@@ -1,4 +1,3 @@
-// src/components/recovery-password/ModalAdmin.tsx
 import React from "react";
 import {
     Overlay,
@@ -13,9 +12,10 @@ import {
 interface ModalAdminProps {
     isOpen: boolean;
     onClose: () => void;
+    onNext: () => void;
 }
 
-const ModalAdmin: React.FC<ModalAdminProps> = ({ isOpen, onClose }) => {
+const ModalAdmin: React.FC<ModalAdminProps> = ({ isOpen, onClose, onNext }) => {
     if (!isOpen) return null;
 
     return (
@@ -30,7 +30,7 @@ const ModalAdmin: React.FC<ModalAdminProps> = ({ isOpen, onClose }) => {
                     cadastrado. Por favor, verifique a sua caixa de entrada e a
                     pasta de spam, se necessário.
                 </Message>
-                <Button onClick={onClose}>Entendi</Button>
+                <Button onClick={onNext}>Próximo</Button>
             </Container>
         </Overlay>
     );

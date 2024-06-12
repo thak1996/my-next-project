@@ -1,4 +1,3 @@
-// src/components/recovery-password/ModalRepresentative.tsx
 import React from "react";
 import {
     Overlay,

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { setItem, getItem } from "../../utils/secureStorage";
 
 const useLoginController = () => {
     const [email, setEmail] = useState("");
@@ -9,18 +10,18 @@ const useLoginController = () => {
     const [loading, setLoading] = useState(false);
     const [userType, setUserType] = useState<string | null>(null);
     const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
-    const [isRepModalOpen, setIsRepModalOpen] = useState(false);
+    const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
+    const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
     const router = useRouter();
 
-    const adminCredentials = {
-        email: "admin@teste.com.br",
-        password: "admin123",
-    };
-
-    const representativeCredentials = {
-        email: "representante@teste.com.br",
-        password: "rep123",
-    };
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedEmail = getItem("email");
+            const storedPassword = getItem("password");
+            if (storedEmail) setEmail(storedEmail);
+            if (storedPassword) setPassword(storedPassword);
+        }
+    }, []);
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -39,19 +40,24 @@ const useLoginController = () => {
         setPasswordError(null);
 
         try {
-            if (email === adminCredentials.email) {
-                if (password === adminCredentials.password) {
+            const storedAdminEmail = getItem("adminEmail") || "admin@teste.com.br";
+            const storedAdminPassword = getItem("adminPassword") || "admin123";
+            const storedRepEmail = getItem("repEmail") || "representante@teste.com.br";
+            const storedRepPassword = getItem("repPassword") || "rep123";
+
+            if (email === storedAdminEmail) {
+                if (password === storedAdminPassword) {
                     setUserType("admin");
                     router.push("/home/home.screen");
                 } else {
                     throw new Error("Senha incorreta, tente novamente.");
                 }
-            } else if (email === representativeCredentials.email) {
-                if (password === representativeCredentials.password) {
+            } else if (email === storedRepEmail) {
+                if (password === storedRepPassword) {
                     setUserType("representante");
                     router.push("/home/home.screen");
                 } else {
-                    throw new Error("Senha incorreta, tente novamente.");
+                    throw new Error("Senha incorreta");
                 }
             } else {
                 throw new Error("E-mail não encontrado");
@@ -68,10 +74,10 @@ const useLoginController = () => {
     };
 
     const handleForgotPassword = () => {
-        if (email === adminCredentials.email) {
+        if (email === getItem("adminEmail") || "admin@teste.com.br") {
             setIsAdminModalOpen(true);
-        } else if (email === representativeCredentials.email) {
-            setIsRepModalOpen(true);
+        } else if (email === getItem("repEmail") || "representante@teste.com.br") {
+            setIsCodeModalOpen(true);
         } else {
             setEmailError("E-mail não encontrado");
         }
@@ -81,8 +87,38 @@ const useLoginController = () => {
         setIsAdminModalOpen(false);
     };
 
-    const closeRepModal = () => {
-        setIsRepModalOpen(false);
+    const openCodeModal = () => {
+        setIsAdminModalOpen(false);
+        setIsCodeModalOpen(true);
+    };
+
+    const closeCodeModal = () => {
+        setIsCodeModalOpen(false);
+    };
+
+    const openChangePasswordModal = () => {
+        setIsCodeModalOpen(false);
+        setIsChangePasswordModalOpen(true);
+    };
+
+    const closeChangePasswordModal = () => {
+        setIsChangePasswordModalOpen(false);
+    };
+
+    const updatePassword = (newPassword: string) => {
+        if (typeof window !== 'undefined') {
+            if (userType === "admin") {
+                setItem("adminPassword", newPassword);
+            } else if (userType === "representante") {
+                setItem("repPassword", newPassword);
+            }
+        }
+    };
+
+    const resetModals = () => {
+        setEmailError(null);
+        setPasswordError(null);
+        setLoading(false);
     };
 
     return {
@@ -93,13 +129,19 @@ const useLoginController = () => {
         loading,
         userType,
         isAdminModalOpen,
-        isRepModalOpen,
+        isCodeModalOpen,
+        isChangePasswordModalOpen,
         handleEmailChange,
         handlePasswordChange,
         handleSubmit,
         handleForgotPassword,
         closeAdminModal,
-        closeRepModal,
+        openCodeModal,
+        closeCodeModal,
+        openChangePasswordModal,
+        closeChangePasswordModal,
+        updatePassword,
+        resetModals,
     };
 };
 

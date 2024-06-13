@@ -88,12 +88,16 @@ export const Menu = styled.div`
 
 export const MenuItem = styled.button<{ selected: boolean }>`
     background-color: ${({ selected }) => (selected ? "#ffccbc" : "#ffffff")};
-    border: 1px solid #ffab91;
-    color: ${({ selected }) => (selected ? "#b71c1c" : "#ff5722")};
-    padding: 10px 20px;
+    border: 1px solid ${({ selected }) => (selected ? "#C91D1D" : "#DEC486")};
+    color: "#431213";
+    width: 170px;
+    height: 30px;
+
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 500;
+    line-height: 19.5px;
     transition: background-color 0.3s;
 
     &:hover {

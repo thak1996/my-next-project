@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FiSearch, FiGrid, FiList } from "react-icons/fi";
+import { FiSearch, FiGrid, FiList, FiPlus } from "react-icons/fi";
 
 export const Container = styled.div`
     padding: 20px;
@@ -37,7 +37,7 @@ export const SearchIcon = styled(FiSearch)`
 
 export const SearchInput = styled.input`
     flex-grow: 1;
-    padding: 10px 10px 10px 40px; 
+    padding: 10px 10px 10px 40px;
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -45,20 +45,16 @@ export const SearchInput = styled.input`
 
 export const ToggleButton = styled.button`
     padding: 10px;
-    background-color: #ffccbc;
+    background-color: #f2d0d0;
     border: none;
     border-radius: 8px;
-    color: white;
+    color: #c91d1d;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
     left: 20px;
-
-    &:hover {
-        background-color: #ffab91;
-    }
 
     svg {
         font-size: 20px;
@@ -112,67 +108,108 @@ export const ProductGrid = styled.div<{ $viewMode: string }>`
     gap: 20px;
 `;
 
-export const ProductCard = styled.div<{ $viewMode: string }>`
-    background-color: #fff;
+export const ProductCardGrid = styled.div`
+    background-color: #fbf8f0;
     border-radius: 8px;
+    border: 1px solid #f2e8d0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s;
     display: flex;
-    flex-direction: ${({ $viewMode }) =>
-        $viewMode === "card" ? "column" : "row"};
-    min-height: 200px; /* Ajuste a altura conforme necessário */
+    flex-direction: column;
+    padding: 16px;
+    min-height: min-content;
 
     &:hover {
         transform: scale(1.05);
     }
 `;
 
-export const ProductImage = styled.img<{ $viewMode: string }>`
-    width: ${({ $viewMode }) => ($viewMode === "card" ? "100%" : "150px")};
-    height: ${({ $viewMode }) => ($viewMode === "card" ? "150px" : "100%")};
-    object-fit: cover;
+export const ProductCardList = styled.div`
+    background-color: #fbf8f0;
+    border-radius: 8px;
+    border: 1px solid #f2e8d0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    min-height: min-content;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 `;
 
-export const ProductDetails = styled.div`
-    padding: 15px;
+export const ProductImageWrapper = styled.div`
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
 `;
 
-export const ProductTitle = styled.h3`
+export const ProductImage = styled.img<{ $viewMode: string }>`
+    width: ${({ $viewMode }) => ($viewMode === "card" ? "100%" : "104px")};
+    height: ${({ $viewMode }) => ($viewMode === "card" ? "auto" : "104px")};
+    object-fit: cover;
+    border-radius: 8px;
+`;
+
+export const ProductDetails = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    flex: 1;
+`;
+
+export const ProductTitle = styled.h3<{ $viewMode: string }>`
     margin: 0;
+    padding-top: ${({ $viewMode }) => ($viewMode === "card" ? "10px" : "0")};
     font-size: 18px;
-    color: #333;
+    color: #27241f;
+    font-weight: bold;
 `;
 
 export const ProductDescription = styled.p`
     font-size: 14px;
-    color: #777;
+    color: #27241f;
+    max-width: 95%;
+`;
+
+export const ProductPriceWrapper = styled.div<{ $viewMode: string }>`
+    display: flex;
+    align-items: center;
+    justify-content: ${({ $viewMode }) =>
+        $viewMode === "card" ? "space-between" : "space-around"};
+    width: ${({ $viewMode }) => ($viewMode === "card" ? "100%" : "10%")};
 `;
 
 export const ProductPrice = styled.div`
     font-size: 16px;
     font-weight: bold;
-    color: #b71c1c;
+    color: #27241f;
 `;
 
 export const ProductUnits = styled.span`
-    display: block;
-    background-color: #ffccbc;
+    display: inline-flex;
+    justify-content: left;
+    background-color: #ffd9b6;
     color: #b71c1c;
+    border-color: #dd7c24;
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 10px;
     font-weight: bold;
+    white-space: nowrap;
+    width: min-content;
+    min-width: 0;
 `;
 
 export const NoItemsMessage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 200px; /* Altura mínima igual ao ProductCard */
+    min-height: 200px;
     color: #777;
     font-size: 18px;
     background-color: #f9f9f9;
@@ -181,4 +218,18 @@ export const NoItemsMessage = styled.div`
     text-align: center;
     padding: 20px;
     width: 100%;
+`;
+
+export const AddIcon = styled(FiPlus)`
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #c91d1d;
+    padding: 7px;
+    gap: 7px;
+
+    &:hover {
+        background-color: #b71c1c;
+    }
 `;

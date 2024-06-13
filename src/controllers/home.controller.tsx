@@ -1,6 +1,32 @@
 import { useState } from "react";
 
-const categories = ["Empadas", "Sopas", "Pastel para fritar", "Pão de queijo"];
+const categories = [
+    "Empadas",
+    "Sopas",
+    "Pastel para fritar",
+    "Pão de queijo",
+    "Marmita",
+    "Pizza",
+    "Lanches",
+    "Salgados",
+    "Porções",
+    "Saladas",
+    "Bebidas",
+    "Sobremesas",
+    "Massas",
+    "Açaí",
+    "Petiscos",
+    "Carnes",
+    "Peixes",
+    "Frutos do Mar",
+    "Vegetariano",
+    "Vegano",
+    "Sem Glúten",
+    "Sem Lactose",
+    "Doces",
+    "Tortas",
+    "Sanduíches",
+];
 
 const products = [
     {

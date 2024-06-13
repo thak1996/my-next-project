@@ -4,6 +4,9 @@ import { FiSearch, FiGrid, FiList, FiPlus } from "react-icons/fi";
 export const Container = styled.div`
     padding: 20px;
     padding-top: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 export const Header = styled.div`
@@ -53,9 +56,7 @@ export const ToggleButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    left: 20px;
-
+    margin-right: 20px;
     svg {
         font-size: 20px;
     }
@@ -66,48 +67,53 @@ export const GridIcon = styled(FiGrid)``;
 
 export const Content = styled.div`
     background-color: #fff;
-    padding: 20px;
+    padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 4rem);
+    margin: 1rem;
 `;
 
 export const MenuWrapper = styled.div`
     display: flex;
-    justify-content: center;
+    flex-direction: row; // Alinha os itens em uma linha
+    justify-content: center; // Centraliza os itens
     align-items: center;
     margin-bottom: 20px;
-    position: relative;
-    width: 100%;
-    overflow: hidden; /* Adicionado para o efeito de carrossel */
+    padding: 0 2rem; // Adiciona padding interno para limitar a largura
+    box-sizing: border-box; // Inclui padding e borda no tamanho total
 `;
 
-export const Carousel = styled.div`
-    display: flex;
-    transition: transform 0.3s ease-in-out;
+export const CarouselWrapper = styled.div`
+    flex-grow: 1; // Permite que o carrossel ocupe o espaço restante
+    width: 100%; // Garante que o carrossel ocupe 100% da largura disponível
+    white-space: nowrap;
+    .slick-slide {
+        display: flex;
+        justify-content: center;
+        padding: 0 10px;
+    }
 `;
 
 export const MenuItem = styled.button<{ selected: boolean }>`
     background-color: ${({ selected }) => (selected ? "#ffccbc" : "#ffffff")};
     border: 1px solid ${({ selected }) => (selected ? "#C91D1D" : "#DEC486")};
     color: "#431213";
-    width: 200px;
-    height: 40px;
+    width: 150px; // Define uma largura fixa para os itens
+    height: 30px; // Altura fixa
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
     line-height: 19.5px;
     transition: background-color 0.3s;
-    white-space: nowrap; /* Evitar quebra de linha */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 10px;
-
+    margin: 0 10px; // Espaçamento entre os itens
+    box-sizing: border-box;
     &:hover {
         background-color: #ffccbc;
     }
 `;
+
 
 export const ProductGrid = styled.div<{ $viewMode: string }>`
     display: grid;

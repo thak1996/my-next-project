@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React from "react";
+import Slider from "react-slick";
 import useHomeController from "../../controllers/home.controller";
 import {
     Container,
@@ -11,7 +12,6 @@ import {
     GridIcon,
     Content,
     MenuWrapper,
-    Carousel,
     MenuItem,
     ProductGrid,
     ProductCardGrid,
@@ -26,6 +26,7 @@ import {
     NoItemsMessage,
     AddIcon,
     ProductImageWrapper,
+    CarouselWrapper,
 } from "../../styles/home.style";
 
 const HomePage: React.FC = () => {
@@ -39,19 +40,18 @@ const HomePage: React.FC = () => {
         handleCategorySelect,
     } = useHomeController();
 
-    const [scrollIndex, setScrollIndex] = useState(0);
-    const carouselRef = useRef<HTMLDivElement>(null);
-
-    const handleCategoryClick = (category: string, index: number) => {
+    const handleCategoryClick = (category: string) => {
         handleCategorySelect(category);
-        const middleIndex = Math.floor(categories.length / 2);
-        const newScrollIndex = index - middleIndex;
-        setScrollIndex(newScrollIndex);
-        if (carouselRef.current) {
-            carouselRef.current.style.transform = `translateX(-${
-                newScrollIndex * 220
-            }px)`;
-        }
+    };
+
+    const carouselSettings = {
+        className: "carousel-wrapper",
+        centerMode: true,
+        variableWidth: true,
+        speed: 500,
+        focusOnSelect: true,
+        infinite: true,
+        arrows: false,
     };
 
     return (
@@ -70,19 +70,21 @@ const HomePage: React.FC = () => {
                     <ToggleButton onClick={toggleViewMode}>
                         {viewMode === "card" ? <GridIcon /> : <ListIcon />}
                     </ToggleButton>
-                    <Carousel ref={carouselRef}>
-                        {categories.map((category, index) => (
-                            <MenuItem
-                                key={index}
-                                selected={category === selectedCategory}
-                                onClick={() =>
-                                    handleCategoryClick(category, index)
-                                }
-                            >
-                                {category}
-                            </MenuItem>
-                        ))}
-                    </Carousel>
+                    <CarouselWrapper>
+                        <Slider {...carouselSettings}>
+                            {categories.map((category, index) => (
+                                <MenuItem
+                                    key={index}
+                                    selected={category === selectedCategory}
+                                    onClick={() =>
+                                        handleCategoryClick(category)
+                                    }
+                                >
+                                    {category}
+                                </MenuItem>
+                            ))}
+                        </Slider>
+                    </CarouselWrapper>
                 </MenuWrapper>
                 {products.length > 0 ? (
                     <ProductGrid $viewMode={viewMode}>

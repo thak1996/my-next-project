@@ -76,17 +76,17 @@ export const Content = styled.div`
 
 export const MenuWrapper = styled.div`
     display: flex;
-    flex-direction: row; // Alinha os itens em uma linha
-    justify-content: center; // Centraliza os itens
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    padding: 0 2rem; // Adiciona padding interno para limitar a largura
-    box-sizing: border-box; // Inclui padding e borda no tamanho total
+    padding: 0 2rem;
+    box-sizing: border-box;
 `;
 
 export const CarouselWrapper = styled.div`
-    flex-grow: 1; // Permite que o carrossel ocupe o espaço restante
-    width: 100%; // Garante que o carrossel ocupe 100% da largura disponível
+    flex-grow: 1;
+    width: 100%;
     white-space: nowrap;
     .slick-slide {
         display: flex;
@@ -99,15 +99,15 @@ export const MenuItem = styled.button<{ selected: boolean }>`
     background-color: ${({ selected }) => (selected ? "#ffccbc" : "#ffffff")};
     border: 1px solid ${({ selected }) => (selected ? "#C91D1D" : "#DEC486")};
     color: "#431213";
-    width: 150px; // Define uma largura fixa para os itens
-    height: 30px; // Altura fixa
+    width: 150px;
+    height: 30px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
     line-height: 19.5px;
     transition: background-color 0.3s;
-    margin: 0 10px; // Espaçamento entre os itens
+    margin: 0 10px;
     box-sizing: border-box;
     &:hover {
         background-color: #ffccbc;

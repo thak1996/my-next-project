@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import useHomeController from "../../controllers/home.controller";
 import {
     Container,
@@ -11,7 +11,7 @@ import {
     GridIcon,
     Content,
     MenuWrapper,
-    Menu,
+    Carousel,
     MenuItem,
     ProductGrid,
     ProductCardGrid,
@@ -39,6 +39,21 @@ const HomePage: React.FC = () => {
         handleCategorySelect,
     } = useHomeController();
 
+    const [scrollIndex, setScrollIndex] = useState(0);
+    const carouselRef = useRef<HTMLDivElement>(null);
+
+    const handleCategoryClick = (category: string, index: number) => {
+        handleCategorySelect(category);
+        const middleIndex = Math.floor(categories.length / 2);
+        const newScrollIndex = index - middleIndex;
+        setScrollIndex(newScrollIndex);
+        if (carouselRef.current) {
+            carouselRef.current.style.transform = `translateX(-${
+                newScrollIndex * 220
+            }px)`;
+        }
+    };
+
     return (
         <Container>
             <Header>
@@ -55,17 +70,19 @@ const HomePage: React.FC = () => {
                     <ToggleButton onClick={toggleViewMode}>
                         {viewMode === "card" ? <GridIcon /> : <ListIcon />}
                     </ToggleButton>
-                    <Menu>
+                    <Carousel ref={carouselRef}>
                         {categories.map((category, index) => (
                             <MenuItem
                                 key={index}
                                 selected={category === selectedCategory}
-                                onClick={() => handleCategorySelect(category)}
+                                onClick={() =>
+                                    handleCategoryClick(category, index)
+                                }
                             >
                                 {category}
                             </MenuItem>
                         ))}
-                    </Menu>
+                    </Carousel>
                 </MenuWrapper>
                 {products.length > 0 ? (
                     <ProductGrid $viewMode={viewMode}>

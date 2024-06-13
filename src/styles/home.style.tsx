@@ -77,28 +77,32 @@ export const MenuWrapper = styled.div`
     align-items: center;
     margin-bottom: 20px;
     position: relative;
+    width: 100%;
+    overflow: hidden; /* Adicionado para o efeito de carrossel */
 `;
 
-export const Menu = styled.div`
+export const Carousel = styled.div`
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    padding-left: 100px;
+    transition: transform 0.3s ease-in-out;
 `;
 
 export const MenuItem = styled.button<{ selected: boolean }>`
     background-color: ${({ selected }) => (selected ? "#ffccbc" : "#ffffff")};
     border: 1px solid ${({ selected }) => (selected ? "#C91D1D" : "#DEC486")};
     color: "#431213";
-    width: 170px;
-    height: 30px;
-
+    width: 200px;
+    height: 40px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
     line-height: 19.5px;
     transition: background-color 0.3s;
+    white-space: nowrap; /* Evitar quebra de linha */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
 
     &:hover {
         background-color: #ffccbc;
@@ -221,7 +225,7 @@ export const NoItemsMessage = styled.div`
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
-    width: 100%;
+    width: auto;
 `;
 
 export const AddIcon = styled(FiPlus)`
